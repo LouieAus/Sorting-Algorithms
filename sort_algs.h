@@ -1,4 +1,4 @@
-п»ї#pragma once
+#pragma once
 #include <vector>
 
 namespace louie_sort {
@@ -10,7 +10,7 @@ namespace louie_sort {
 	}
 
 
-	// =========== вЂ”РѕСЂС‚РёСЂРѕРІРєР° РѕР±РјРµРЅРѕРј: O(n^2), РЅРµСѓСЃС‚РѕР№С‡РёРІР°В¤ ===========
+	// =========== Сортировка обменом: O(n^2), неустойчивая ===========
 	template <typename T>
 	void exchangeSort(std::vector<T>& arr) {
 		for (unsigned int i = 0; i < arr.size() - 1; i++) {
@@ -22,7 +22,7 @@ namespace louie_sort {
 	}
 
 
-	// =========== вЂ”РѕСЂС‚РёСЂРѕРІРєР° РІС‹Р±РѕСЂРѕРј: O(n^2), РЅРµСѓСЃС‚РѕР№С‡РёРІР°В¤ ===========
+	// =========== Сортировка выбором: O(n^2), неустойчивая ===========
 	template <typename T>
 	void selectionSort(std::vector<T>& arr) {
 		for (unsigned int i = 0; i < arr.size(); i++) {
@@ -38,7 +38,7 @@ namespace louie_sort {
 	}
 
 
-	// =========== вЂ”РѕСЂС‚РёСЂРѕРІРєР° РїСѓР·С‹СЂСЊРєРѕРј: O(n), O(n^2), СѓСЃС‚РѕР№С‡РёРІР°В¤ ===========
+	// =========== Сортировка пузырьком: O(n), O(n^2), устойчивая ===========
 	template <typename T>
 	void bubbleSort(std::vector<T>& arr) {
 		bool swapped = false;
@@ -54,7 +54,7 @@ namespace louie_sort {
 	}
 
 
-	// =========== вЂ”РѕСЂС‚РёСЂРѕРІРєР° РІСЃС‚Р°РІРєР°РјРё: O(n), O(n^2), СѓСЃС‚РѕР№С‡РёРІР°В¤ ===========
+	// =========== Сортировка вставками: O(n), O(n^2), устойчивая ===========
 	template <typename T>
 	void insertionSort(std::vector<T>& arr) {
 		for (unsigned int i = 1; i < arr.size(); i++) {
@@ -69,10 +69,10 @@ namespace louie_sort {
 	}
 
 
-	// =========== вЂ”РѕСЂС‚РёСЂРѕРІРєР° РЋРµР»Р»Р°: РЅРµСѓСЃС‚РѕР№С‡РёРІР°В¤ ===========
+	// =========== Сортировка Шелла: неустойчивая ===========
 	enum h_type { SIMPLE, SEJVIG, HIBBARD, PRATT, CIURA, FIBONACHI, KNUT };
 
-		// вЂСѓРЅРєС†РёВ¤ СЂРµРІРµСЂСЃР° РјР°СЃСЃРёРІР°
+		// Функция реверса массива
 	template <typename T>
 	void inverseArray(std::vector<T>& arr) {
 		for (unsigned int i = 0; i < arr.size() / 2; i++) {
@@ -80,9 +80,9 @@ namespace louie_sort {
 		}
 	}
 
-		// вЂСѓРЅРєС†РёВ¤ СЃРѕР·РґР°РЅРёВ¤ РјР°СЃСЃРёРІР° РїСЂРѕРјРµР¶СѓС‚РєРѕРІ РґР»В¤ СЃРѕСЂРёС‚СЂРѕРІРєРё РЋРµР»Р»Р°
+		// Функция создания массива промежутков для соритровки Шелла
 	void getIntervals(std::vector<unsigned int>& intervals, h_type interval, unsigned int elements_amount) {
-			// СњР±С‹С‡РЅС‹Р№ РІР°СЂРёР°РЅС‚ РІС‹Р±РѕСЂР° РїСЂРѕРјРµР¶СѓС‚РєРѕРІ: O(n^2)
+			// Обычный вариант выбора промежутков: O(n^2)
 		if (interval == SIMPLE) {
 			intervals.push_back(elements_amount / 2);
 			while (intervals[intervals.size() - 1] != 1) {
@@ -90,7 +90,7 @@ namespace louie_sort {
 			}
 		}
 
-			// В¬Р°СЂРёР°РЅС‚ вЂ”РµРґР¶РІРёРєР° РІС‹Р±РѕСЂР° РїСЂРѕРјРµР¶СѓС‚РєРѕРІ: O(n^(7/6)), O(n^(4/3))
+			// Вариант Седжвика выбора промежутков: O(n^(7/6)), O(n^(4/3))
 		else if (interval == SEJVIG) {
 			int i = 1;
 			unsigned int k = 1;
@@ -107,7 +107,7 @@ namespace louie_sort {
 			inverseArray(intervals);
 		}
 
-			// В¬Р°СЂРёР°РЅС‚ вЂ™РёР±Р±Р°СЂРґР° РІС‹Р±РѕСЂР° РїСЂРѕРјРµР¶СѓС‚РєРѕРІ: O(n^(3/2))
+			// Вариант Хиббарда выбора промежутков: O(n^(3/2))
 		else if (interval == HIBBARD) {
 			int i = 2;
 			unsigned int k = 1;
@@ -119,7 +119,7 @@ namespace louie_sort {
 			inverseArray(intervals);
 		}
 		
-		// В¬Р°СЂРёР°РЅС‚ С•СЂР°С‚С‚Р° РІС‹Р±РѕСЂР° РїСЂРѕРјРµР¶СѓС‚РєРѕРІ: O(n*(log n)^2)
+		// Вариант Пратта выбора промежутков: O(n*(log n)^2)
 		else if (interval == PRATT) {
 			int a = 0;
 			int k = 1;
@@ -141,7 +141,7 @@ namespace louie_sort {
 			inverseArray(intervals);
 		}
 
-			// В¬Р°СЂРёР°РЅС‚ РІ РІРёРґРµ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё Г·РёСѓСЂР° РґР»В¤ РІС‹Р±РѕСЂР° РїСЂРѕРјРµР¶СѓС‚РєРѕРІ
+			// Вариант в виде последовательности Циура для выбора промежутков
 		else if (interval == CIURA) {
 			std::vector<short int> knut = { 1, 4, 10, 23, 57, 132, 301, 701, 1750 };
 			for (short int& num : knut) {
@@ -152,7 +152,7 @@ namespace louie_sort {
 			inverseArray(intervals);
 		}
 
-			// В¬Р°СЂРёР°РЅС‚ РІ РІРёРґРµ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё вЂРёР±РѕРЅР°С‡С‡Рё РґР»В¤ РІС‹Р±РѕСЂР° РїСЂРѕРјРµР¶СѓС‚РєРѕРІ
+			// Вариант в виде последовательности Фибоначчи для выбора промежутков
 		else if (interval == FIBONACHI) {
 			std::vector<short int> knut = { 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597 };
 			for (short int& num : knut) {
@@ -163,7 +163,7 @@ namespace louie_sort {
 			inverseArray(intervals);
 		}
 
-			// В¬Р°СЂРёР°РЅС‚ В РЅСѓС‚Р° РІС‹Р±РѕСЂР° РїСЂРѕРјРµР¶СѓС‚РєРѕРІ: O(n^(5/4)), O(n^(3/2))
+			// Вариант Кнута выбора промежутков: O(n^(5/4)), O(n^(3/2))
 		else if (interval == KNUT) {
 			int i = 2;
 			unsigned int k = 1;
@@ -176,7 +176,7 @@ namespace louie_sort {
 		}
 	}
 
-		// СњСЃРЅРѕРІРЅРѕР№ Р°Р»РіРѕСЂРёС‚Рј СЃРѕСЂС‚РёСЂРѕРІРєРё РЋРµР»Р»Р°
+		// Основной алгоритм сортировки Шелла
 	template <typename T>
 	void shellSort(std::vector<T>& arr, h_type interval) {
 		std::vector<unsigned int> vecs;
@@ -201,29 +201,42 @@ namespace louie_sort {
 		} while (h != 1);
 	}
 
-	// =========== Р…С‹СЃС‚СЂР°В¤ СЃРѕСЂС‚РёСЂРѕРІРєР°: O(n*log(2, n)), O(n*log(n)), O(n^2), РЅРµСѓСЃС‚РѕР№С‡РёРІР°В¤ ===========
-	enum partition_type { LOMUTO, HOARA };
 
+	// =========== Быстрая сортировка: O(n*log(2, n)), O(n*log(n)), O(n^2), неустойчивая ===========
+
+		// Функция разбиения массива методом Хоара
 	template <typename T>
-	void partition(std::vector<T>& arr, unsigned int low, unsigned int high, partition_type type) {
-		if (type == LOMUTO) {
-			T v = arr[high];
-			unsigned int i = low;
-			for (unsigned int j = low; j <= high - 1; j++) {
-				if (arr[j] <= v) {
-					swap(arr, i, j);
-					i++;
-				}
+	unsigned int partition(std::vector<T>& arr, unsigned int low, unsigned int high) {
+		T v = arr[(high + low) / 2];
+		unsigned int i = low;
+		unsigned int j = high;
+		while (true) {
+			while (arr[i] < v) {
+				i++;
 			}
-			swap(arr, i, high);
+			while (arr[j] > v) {
+				j--;
+			}
+			if (i >= j) break;
+			swap(arr, i, j);
+			if (arr[i] == arr[j]) {
+				i++;
+				j--;
+			}
 		}
-		/*else if (type == HOARA) {
-
-		}*/
+		return j;
 	}
 
+		// Основная функция сортировки
 	template <typename T>
-	void quickSort(std::vector<T>& arr, partition_type type) {
-		partition(arr, 0, arr.size() - 1, type);
+	void quickSort(std::vector<T>& arr, int high = 0, int low = 0, bool user = true) {
+		if (user) {
+			high = arr.size() - 1;
+		}
+		if (low < high) {
+			unsigned int a = partition(arr, low, high);
+			quickSort(arr, a, low, false);
+			quickSort(arr, high, a + 1, false);
+		}
 	}
 }
