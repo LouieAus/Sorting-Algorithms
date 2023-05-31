@@ -1,18 +1,22 @@
+#pragma once
 namespace louie_sort {
   
   // =========== Сортировка обменом: O(n^2), неустойчивая ===========
-	// type_A - тип элементов массива, arr - указатель на первый элемент массива, size - размер массива
-	template <typename type_A>
-	void exchangeSortArrs(type_A* arr, int size) {
-		for (auto i = 0; i != size; ++i) {
-			for (auto j = i + 1; j != size; ++j) {
-				if (*(arr + i) > *(arr + j)) {
-					type_A temp = *(arr + i);
-					*(arr + i) = *(arr + j);
-					*(arr + j) = temp;
+	template <typename T>
+		void exchangeSortArr2(T iter_begin, T iter_end) {
+			for (T i = iter_begin; i != iter_end; ++i) {
+				if (i != iter_end) {
+					T temp_i = i;
+					T j = ++i;
+					i = temp_i;
+					for (; j != iter_end; ++j) {
+						if (*i > *j) {
+							auto temp = *i;
+							*i = *j;
+							*j = temp;
+						}	
+					}
 				}
 			}
 		}
-	}
-  
 }
